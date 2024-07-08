@@ -26,10 +26,22 @@ const App = () => {
     fetchWeatherData();
   }, []);
 
+  const getBackgroundColor = (probability) => {
+    if (probability >= 75) {
+      return 'linear-gradient(to bottom, red, white)';
+    } else if (probability >= 50) {
+      return 'linear-gradient(to bottom, orange, white)';
+    } else if (probability >= 25) {
+      return 'linear-gradient(to bottom, yellow, white)';
+    } else {
+      return 'linear-gradient(to bottom, green, white)';
+    }
+  };
+
   return (
-    <div className="app">
+    <div className="app" style={{ backgroundImage: getBackgroundColor(60) }}>
       <Header />
-      <CurrentProbability probability={currentProbability} />
+      <CurrentProbability probability={60} />
       <ThreeDayForecast forecast={forecast} />
       <Footer />
     </div>
