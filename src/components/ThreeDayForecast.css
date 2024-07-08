@@ -1,0 +1,22 @@
+.three-day-forecast {
+    margin: 20px;
+  }
+  
+  .forecast-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dee2e6;
+    background-color: #0080ff;
+  }
+  
+  .forecast-row {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-bottom: 1px solid #ffffff;
+  }
+  
+  .forecast-row p {
+    margin: 0;
+  }
+  

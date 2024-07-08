@@ -1,0 +1,16 @@
+.current-probability {
+    margin: 20px;
+  }
+  
+  .probability-box {
+    border: 1px solid #5f9ea0; /* Light steel blue border */
+    padding: 20px;
+    margin-top: 10px;
+    color: white;
+  }
+  
+  .probability-box p {
+    font-size: 2em;
+    margin: 0;
+  }
+  
