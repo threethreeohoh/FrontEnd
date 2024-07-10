@@ -16,7 +16,7 @@ const CurrentProbability = ({ probability }) => {
 
   return (
     <div className="current-probability" style={{ backgroundColor }}>
-      <h2>현재 비 올 확률</h2>
+      <h2><br></br>현재 비 올 확률</h2>
       <div className="probability-box">
         <p>{probability}%</p>
       </div>
