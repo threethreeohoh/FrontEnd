@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MapImage.css';
-import { Map } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 
-const MapImage = () => {
-    return (
-      <div className="map-image">
-        <h1>제주도 지도</h1>
-        <Map 
-        center={{ lat: 33.3563, lng: 126.49581 }}   // 지도의 중심 좌표
-        style={{ width: '100%', height: '600px' }} // 지도 크기
-        level={10}                                   // 지도 확대 레벨
+const center = {
+  // 지도의 중심좌표
+  lat: 33.392197,
+  lng: 126.560781,
+};
+
+export default function AddMapClickEventWithMarker() {
+  const [position, setPosition] = useState(undefined);
+
+  return (
+    <>
+      <Map // 지도를 표시할 Container
+        id="map"
+        center={center}
+        style={{
+          width: "97%",
+          height: "600px",
+        }}
+        level={10} // 지도의 확대 레벨
+        onClick={(_target, mouseEvent) => {
+          const latlng = mouseEvent.latLng;
+          setPosition({
+            lat: latlng.getLat(),
+            lng: latlng.getLng(),
+          });
+        }}
       >
+        <MapMarker position={position ?? center} />
+        <MapMarker // 마커를 생성합니다
+        position={{
+          // 마커가 표시될 위치입니다
+          lat: 33.450701,
+          lng: 126.570667,
+        }}
+      />
+        <MapTypeControl position="TOPRIGHT" />
+        <ZoomControl position="RIGHT" />
       </Map>
-      </div>
-    );
-  };
-
-  export default MapImage;
+    </>
+  );
+}
