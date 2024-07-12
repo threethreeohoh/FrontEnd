@@ -9,6 +9,12 @@ import Footer from './components/Footer';
 import MapImage from './components/MapImage';
 import './App.css';
 
+const forecastData = [
+  { precipitation: 5 },
+  { precipitation: 10 },
+  { precipitation: 15 }
+];
+
 const App = () => {
   const dispatch = useDispatch();
   const probability = useSelector((state) => state.probability);
@@ -62,7 +68,8 @@ const App = () => {
     <div className="app" style={{ backgroundImage: getBackgroundColor(timeOfDay, 50) }}>
       <Header className="header" />
       <CurrentProbability className="current-probability" probability={50} />
-      <ThreeDayForecast className="three-day-forecast" forecast={forecast} />
+      <h1>3일간의 날씨 예보</h1>
+      <ThreeDayForecast className="three-day-forecast" forecast={forecastData} />
       <MapImage className="map-image" />
       <Footer className="footer" />
     </div>
