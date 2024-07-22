@@ -1,5 +1,18 @@
 @import url("https://statics.goorm.io/fonts/GoormSans/v1.0.0/GoormSans.min.css");
 
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -25,6 +38,10 @@ html, body {
   display: flex;
   flex-direction: column;
   min-height: 100vh; /* 화면 전체를 채우도록 설정 */
+}
+
+.day-text{
+  animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
 }
 
 .header,

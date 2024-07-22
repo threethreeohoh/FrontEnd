@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProbability, setTimeOfDay } from './actions';
@@ -22,6 +22,9 @@ const App = () => {
   const forecast = useSelector((state) => state.forecast);
   const city = 'Jeju-do';
   const API_KEY = 'YOUR_API_KEY';
+
+  const [observatoryOrder, setObservatoryOrder] = useState([]);
+  const [distances, setDistances] = useState([]);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -67,10 +70,10 @@ const App = () => {
   return (
     <div className="app" style={{ backgroundImage: getBackgroundColor(timeOfDay, 50) }}>
       <Header className="header" />
-      <CurrentProbability className="current-probability" probability={50} />
-      <h1>3일간의 날씨 예보</h1>
+      <CurrentProbability className="current-probability" probability={50} observatoryOrder={observatoryOrder} distances={distances} />
+      <h1 className="day-text">3일간의 날씨 예보</h1>
       <ThreeDayForecast className="three-day-forecast" forecast={forecastData} />
-      <MapImage className="map-image" />
+      <MapImage className="map-image" setObservatoryOrder={setObservatoryOrder} setDistances={setDistances} />
       <Footer className="footer" />
     </div>
   );

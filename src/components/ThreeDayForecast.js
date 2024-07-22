@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReactRain from 'react-rain-animation';
+import "react-rain-animation/lib/style.css";
 import './ThreeDayForecast.css';
 
 const getDate = (daysToAdd) => {
@@ -7,37 +9,44 @@ const getDate = (daysToAdd) => {
   return date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 };
 
-const Day1 = ({ forecast }) => (
-  <div className="day-box">
-    <h2>{getDate(1)}</h2>
-    <p>{forecast?.[0]?.precipitation ?? 'N/A'} %</p>
-  </div>
-);
-
-const Day2 = ({ forecast }) => (
-  <div className="day-box">
-    <h2>{getDate(2)}</h2>
-    <p>{forecast?.[1]?.precipitation ?? 'N/A'} %</p>
-  </div>
-);
-
-const Day3 = ({ forecast }) => (
-  <div className="day-box">
-    <h2>{getDate(3)}</h2>
-    <p>{forecast?.[2]?.precipitation ?? 'N/A'} %</p>
+const DayBox = ({ forecast, dayIndex, isHovered, onHover, onLeave }) => (
+  <div
+    className={`day-box ${isHovered ? 'hovered' : ''} ${!isHovered && isHovered !== null ? 'shrinked' : ''}`}
+    onMouseEnter={() => onHover(dayIndex)}
+    onMouseLeave={onLeave}
+  >
+    <h2>{getDate(dayIndex + 1)}</h2>
+    <p>{forecast?.[dayIndex]?.precipitation ?? 'N/A'} %</p>
   </div>
 );
 
 const ThreeDayForecast = ({ forecast }) => {
+  const [hoveredDay, setHoveredDay] = useState(null);
+
   if (!forecast || forecast.length < 3) {
     return <div>데이터가 부족합니다</div>;
   }
 
+  const handleMouseEnter = (dayIndex) => {
+    setHoveredDay(dayIndex);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredDay(null);
+  };
+
   return (
     <div className="forecast-container">
-      <Day1 forecast={forecast} />
-      <Day2 forecast={forecast} />
-      <Day3 forecast={forecast} />
+      {[0, 1, 2].map((dayIndex) => (
+        <DayBox
+          key={dayIndex}
+          dayIndex={dayIndex}
+          forecast={forecast}
+          isHovered={hoveredDay === dayIndex}
+          onHover={handleMouseEnter}
+          onLeave={handleMouseLeave}
+        />
+      ))}
     </div>
   );
 };
