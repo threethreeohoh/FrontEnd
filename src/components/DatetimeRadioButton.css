@@ -1,0 +1,9 @@
+.radio-button-group {
+    display: flex;
+    gap: 10px; /* 라디오 버튼 간의 간격 조정 */
+  }
+  
+  .radio-button-group label {
+    margin: 0;
+  }
+  

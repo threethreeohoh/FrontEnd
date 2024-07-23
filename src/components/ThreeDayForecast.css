@@ -1,22 +1,60 @@
-.three-day-forecast {
-    margin: 20px;
+@keyframes shadow-drop-center {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
-  
-  .forecast-table {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid #dee2e6;
-    background-color: #0080ff;
+  100% {
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.25);
   }
-  
-  .forecast-row {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    border-bottom: 1px solid #ffffff;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
   }
-  
-  .forecast-row p {
-    margin: 0;
+  100% {
+    opacity: 1;
   }
-  
+}
+
+.forecast-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  gap: 10px;
+}
+
+.day-box {
+  flex: 1;
+  border: 1px solid skyblue;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px;
+  margin-left:10px;
+  margin-right:10px;
+  text-align: center;
+  transition: flex-grow 0.3s ease, transform 0.3s ease;
+  animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+}
+
+.day-box.hovered {
+  flex-grow: 1.1;
+  transform: scale(1.1);
+}
+
+.day-box.shrinked {
+  flex-grow: 0.9;
+  transform: scale(0.9);
+}
+
+.day-box h2 {
+  margin-bottom: 10px;
+}
+
+.day-box p {
+  margin: 0;
+}

@@ -1,31 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ReactRain from 'react-rain-animation';
+import "react-rain-animation/lib/style.css";
 import './ThreeDayForecast.css';
 
-const ThreeDayForecast = ({ forecast }) => {
-  return (
-    <div className="three-day-forecast">
-      <h2>3일 동안의 강수량 예측</h2>
-      <div className="forecast-table">
-        {forecast.map((day, index) => (
-          <div key={index} className="forecast-row" style={{ backgroundColor: getBackgroundColor(day.day.daily_chance_of_rain) }}>
-            <p>{day.date}</p>
-            <p>{day.day.daily_chance_of_rain}%</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+const getDate = (daysToAdd) => {
+  const date = new Date();
+  date.setDate(date.getDate() + daysToAdd);
+  return date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 };
 
-// Function to determine background color based on probability
-const getBackgroundColor = (probability) => {
-  if (probability >= 70) {
-    return '#FF6347'; // Red for high probability
-  } else if (probability >= 50) {
-    return '#FFA500'; // Orange for medium probability
-  } else {
-    return '#32CD32'; // Green for low probability
+const DayBox = ({ forecast, dayIndex, isHovered, onHover, onLeave }) => (
+  <div
+    className={`day-box ${isHovered ? 'hovered' : ''} ${!isHovered && isHovered !== null ? 'shrinked' : ''}`}
+    onMouseEnter={() => onHover(dayIndex)}
+    onMouseLeave={onLeave}
+  >
+    <h2>{getDate(dayIndex + 1)}</h2>
+    <p>{forecast?.[dayIndex]?.precipitation ?? 'N/A'} %</p>
+  </div>
+);
+
+const ThreeDayForecast = ({ forecast }) => {
+  const [hoveredDay, setHoveredDay] = useState(null);
+
+  if (!forecast || forecast.length < 3) {
+    return <div>데이터가 부족합니다</div>;
   }
+
+  const handleMouseEnter = (dayIndex) => {
+    setHoveredDay(dayIndex);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredDay(null);
+  };
+
+  return (
+    <div className="forecast-container">
+      {[0, 1, 2].map((dayIndex) => (
+        <DayBox
+          key={dayIndex}
+          dayIndex={dayIndex}
+          forecast={forecast}
+          isHovered={hoveredDay === dayIndex}
+          onHover={handleMouseEnter}
+          onLeave={handleMouseLeave}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default ThreeDayForecast;

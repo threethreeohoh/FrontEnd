@@ -1,21 +1,90 @@
-.current-probability {
-    margin: 20px;
-    border-radius:30px;
-    text-align: center;
-    line-height: 20px;
-    border:2px solid aquamarine;
-    background-color:
+@keyframes shadow-drop-center {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
   }
+  100% {
+    box-shadow: 0 0 20px 0px rgba(0, 0, 0, 0.55);
+  }
+}
 
-  .probability-box {
-    padding: 20px;
-    margin-top: 10px;
-    color: black;
-    border-radius: 30px;
+@keyframes fade-in {
+  0% {
+    opacity: 0;
   }
-  
-  .probability-box p {
-    font-size: 2em;
-    margin: 0;
+  100% {
+    opacity: 1;
   }
-  
+}
+
+.current-probability {
+  position: relative;
+  margin: 20px;
+  border-radius: 30px;
+  text-align: center;
+  line-height: 20px;
+  animation: shadow-drop-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.probability-box {
+  padding: 20px;
+  margin-top: 10px;
+  color: black;
+  border-radius: 30px;
+}
+
+.probability-box p {
+  font-size: 2em;
+  margin: 0;
+}
+
+.text{
+  margin-top: 20px;
+}
+
+.observatory-distances {
+  margin-top: 20px;
+}
+
+.observatory-distances ul {
+  list-style: none;
+  padding: 0;
+}
+
+.observatory-distances li {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+.observatory-distances {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.distance-grid {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.distance-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.distance-item {
+  margin: 5px 20px;
+  text-align: left;
+}
+
+.coords {
+  font-size: 0.8em;
+  color: gray;
+  margin-left: 10px;
+}
