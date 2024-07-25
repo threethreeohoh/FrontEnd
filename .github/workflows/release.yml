@@ -1,4 +1,4 @@
-name: Build and Deploy Docker Image to ECR1
+name: Build and Deploy Docker Image to ECR
 
 on:
   push:
@@ -44,10 +44,10 @@ jobs:
       run: aws s3 cp s3://front-kko/Dockerfile_front ./Dockerfile
 
     - name: Build Docker image
-      run: docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/project-frontend:latest .
+      run: docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:project-frontend .
 
     - name: Log in to ECR
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Push Docker image to ECR
-      run: docker push ${{ secrets.ECR_REPOSITORY_URI }}/project-frontend:latest
+      run: docker push ${{ secrets.ECR_REPOSITORY_URI }}:project-frontend
