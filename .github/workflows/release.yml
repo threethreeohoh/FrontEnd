@@ -1,9 +1,9 @@
-name: Build and Deploy Docker Image to ECR_back
+name: Build and Deploy Docker Image to ECR1
 
 on:
   push:
     branches:
-      - release
+      - main
 
 jobs:
   build-and-deploy:
@@ -13,13 +13,22 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
       with:
-        node-version: '17'
+        node-version: '20.15.1'
 
-    - name: Grant execute permission for Gradlew
-      run: chmod +x ./gradlew
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Install additional dependencies
+      run: |
+        npm install axios
+        npm install react-kakao-maps-sdk
+    - name: Build
+      env:
+        CI: false
+      run: npm run build
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
@@ -27,21 +36,18 @@ jobs:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-northeast-2
-        
-    - name: Download application.yaml from S3
-      run: aws s3 cp s3://front-kko/application.yaml/application.yaml ./src/main/resources/application.yaml
-      
-    - name: Download Dockerfile from S3
-      run: aws s3 cp s3://front-kko/Dockerfile_back ./Dockerfile
 
-    - name: Build with Gradle
-      run: ./gradlew build -x test
-      
+    - name: Download nginx.conf from S3
+      run: aws s3 cp s3://front-kko/nginx.conf ./nginx.conf
+
+    - name: Download Dockerfile from S3
+      run: aws s3 cp s3://front-kko/Dockerfile_front ./Dockerfile
+
     - name: Build Docker image
-      run: docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/project-backend:latest .
+      run: docker build -t ${{ secrets.ECR_REPOSITORY_URI }}/project-frontend:latest .
 
     - name: Log in to ECR
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Push Docker image to ECR
-      run: docker push ${{ secrets.ECR_REPOSITORY_URI }}/project-backend:latest
+      run: docker push ${{ secrets.ECR_REPOSITORY_URI }}/project-frontend:latest
