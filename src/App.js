@@ -110,9 +110,20 @@ const App = () => {
     let color;
 
     if (probability) {
-      color = 'blue';
+      color = 'gray';
     } else {
-      color = 'green';
+      switch (timeOfDay){
+        case 'dawn':
+        case 'daytime':
+          color = 'skyblue';
+          break;
+        case 'sunset':
+          color = 'orange';
+          break;
+        case 'nighttime':
+          color = 'navy';
+          break;
+      }
     }
 
     switch (timeOfDay) {

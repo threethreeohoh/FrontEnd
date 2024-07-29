@@ -18,7 +18,7 @@ const CurrentProbability = ({ probability, distances }) => {
   return (
     <div className="current-probability">
       <Rain 
-        numDrops={probability ? 20 : 0}
+        numDrops={probability * 100}
         dropletColor="rgb(70, 70, 70)"
         showImpact="true"
         dropletOpacity={0.2}
