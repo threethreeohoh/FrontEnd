@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import App from './App';
 import SignUp from './components/SignUp';  // SignUp 컴포넌트 추가
+import ApiError from './components/ApiError'; // ApiError 컴포넌트 추가
 import './index.css';
 
 ReactDOM.render(
@@ -13,6 +14,7 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/signup" element={<SignUp />} /> {/* 회원 가입 경로 추가 */}
+        <Route path="/apierror" element={<ApiError />} /> {/* API Error 경로 추가 */}
       </Routes>
     </Router>
   </Provider>,

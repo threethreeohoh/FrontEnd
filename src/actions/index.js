@@ -8,3 +8,7 @@ export const setProbability = (probability) => ({
     payload: timeOfDay
   });
   
+  export const setForecast = (forecast) => ({
+    type: 'SET_FORECAST',
+    payload: forecast
+  });

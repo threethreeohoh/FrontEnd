@@ -9,23 +9,33 @@ const getDate = (daysToAdd) => {
   return date.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 };
 
-const DayBox = ({ forecast, dayIndex, isHovered, onHover, onLeave }) => (
-  <div
-    className={`day-box ${isHovered ? 'hovered' : ''} ${!isHovered && isHovered !== null ? 'shrinked' : ''}`}
-    onMouseEnter={() => onHover(dayIndex)}
-    onMouseLeave={onLeave}
-  >
-    <h2>{getDate(dayIndex + 1)}</h2>
-    <p>{forecast?.[dayIndex]?.precipitation ?? 'N/A'} %</p>
-  </div>
-);
+const DayBox = ({ forecast, dayIndex, isHovered, onHover, onLeave }) => {
+  const rainingStatus = forecast && forecast[dayIndex] && forecast[dayIndex] !== null && forecast[dayIndex].raining_status !== null
+    ? (forecast[dayIndex].raining_status ? '비가 내릴 예정' : '비가 내리지 않을 예정')
+    : '데이터 없음';
+
+  return (
+    <div
+      className={`day-box ${isHovered ? 'hovered' : ''} ${!isHovered && isHovered !== null ? 'shrinked' : ''}`}
+      onMouseEnter={() => onHover(dayIndex)}
+      onMouseLeave={onLeave}
+    >
+      <h2>{getDate(dayIndex + 1)}</h2>
+      <p>{rainingStatus}</p>
+    </div>
+  );
+};
 
 const ThreeDayForecast = ({ forecast }) => {
   const [hoveredDay, setHoveredDay] = useState(null);
 
-  if (!forecast || forecast.length < 3) {
-    return <div>데이터가 부족합니다</div>;
-  }
+  const defaultForecast = [
+    { raining_status: null },
+    { raining_status: null },
+    { raining_status: null }
+  ];
+
+  const actualForecast = forecast && forecast.length >= 3 ? forecast : defaultForecast;
 
   const handleMouseEnter = (dayIndex) => {
     setHoveredDay(dayIndex);
@@ -41,7 +51,7 @@ const ThreeDayForecast = ({ forecast }) => {
         <DayBox
           key={dayIndex}
           dayIndex={dayIndex}
-          forecast={forecast}
+          forecast={actualForecast}
           isHovered={hoveredDay === dayIndex}
           onHover={handleMouseEnter}
           onLeave={handleMouseLeave}
