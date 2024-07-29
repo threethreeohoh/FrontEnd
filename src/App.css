@@ -55,3 +55,33 @@ html, body {
 .footer {
   flex-shrink: 0; /* Footer가 화면 하단에 고정되도록 설정 */
 }
+
+/* 기존 코드 유지 */
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 어두운 배경 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* 다른 요소들 위에 표시되도록 설정 */
+}
+
+.loading-spinner {
+  border: 16px solid rgb(81, 119, 134);
+  border-radius: 50%;
+  border-top: 16px solid skyblue;
+  width: 120px;
+  height: 120px;
+  animation: spin 1.2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
