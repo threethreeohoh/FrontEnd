@@ -23,7 +23,7 @@ const SignUp = () => {
     e.preventDefault();
     if (passwordMatch) {
       try {
-        const response = await axios.post('http://43.203.207.97:8081/join', { username, password });
+        const response = await axios.post('http://3.35.231.194:8081/join', { username, password });
         if (response.data === 'ok') {
           alert('회원 가입이 완료되었습니다!');
         }

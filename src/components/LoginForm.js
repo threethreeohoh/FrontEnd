@@ -10,7 +10,7 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://43.203.207.97:8081/login', { username, password });
+      const response = await axios.post('http://3.35.231.194:8081/login', { username, password });
       if (response.data === 'ok') {
         alert('로그인에 성공했습니다!');
         // 로그인 성공 시 필요한 추가 작업을 여기서 수행
