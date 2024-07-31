@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './LoginForm.css';
+import { UserContext } from '../UserContext';
 
 const LoginForm = () => {
-  const [username, setUsername] = useState('');
+  const { setUsername } = useContext(UserContext);
+  const [username, setUsernameLocal] = useState('');
   const [password, setPassword] = useState('');
+
+  const formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://3.35.231.194:8081/login', { username, password });
-      if (response.data === 'ok') {
+      const response = await axios.post('http://43.201.100.198:8081/login', formData);
+      if (response) {
         alert('로그인에 성공했습니다!');
-        // 로그인 성공 시 필요한 추가 작업을 여기서 수행
+        setUsername(username); // Context에 username 설정 및 localStorage 저장
       } else {
         alert('로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.');
       }
@@ -32,7 +38,7 @@ const LoginForm = () => {
           placeholder="이메일"
           className="login-input"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={(e) => setUsernameLocal(e.target.value)}
           required
         />
         <input
