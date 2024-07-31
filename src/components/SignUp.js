@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './SignUp.css';
 
@@ -8,6 +9,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const navigate = useNavigate();
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
@@ -23,9 +25,10 @@ const SignUp = () => {
     e.preventDefault();
     if (passwordMatch) {
       try {
-        const response = await axios.post('http://3.35.231.194:8081/join', { username, password });
+        const response = await axios.post('http://43.201.100.198:8081/join', { username, password });
         if (response.data === 'ok') {
           alert('회원 가입이 완료되었습니다!');
+          navigate('/'); // 메인 페이지로 리디렉션
         }
       } catch (error) {
         console.error('회원 가입 중 오류가 발생했습니다!', error);
