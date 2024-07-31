@@ -40,12 +40,22 @@
   }
   
   .logout-confirm {
-    background-color: #f44336; /* Red */
+    background-color: #f07269; /* Red */
     color: white;
+    transition : 0.3s ease;
+  }
+
+  .logout-confirm:hover{
+    background-color: #f44336; /* Red */
   }
   
   .logout-cancel {
     background-color: #bbb; /* Gray */
     color: white;
+    transition : 0.3s ease;
+  }
+
+  .logout-cancel:hover {
+    background-color: #7f7f7f; /* Gray */
   }
   
