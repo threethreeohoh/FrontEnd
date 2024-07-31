@@ -17,9 +17,13 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://43.201.100.198:8081/login', formData);
-      if (response) {
+
+      // 헤더에서 토큰을 추출
+      const token = response.headers['authorization'];
+      if (token) {
         alert('로그인에 성공했습니다!');
         setUsername(username); // Context에 username 설정 및 localStorage 저장
+        localStorage.setItem('token', token); // 토큰 저장
         window.location.reload(); // 로그인 성공 후 새로고침
       } else {
         alert('로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.');

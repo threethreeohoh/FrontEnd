@@ -11,6 +11,10 @@ const SignUp = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const navigate = useNavigate();
 
+  const formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
+
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     setPasswordMatch(e.target.value === confirmPassword);
@@ -25,7 +29,7 @@ const SignUp = () => {
     e.preventDefault();
     if (passwordMatch) {
       try {
-        const response = await axios.post('http://43.201.100.198:8081/join', { username, password });
+        const response = await axios.post('http://43.201.100.198:8081/join', formData);
         if (response.data === 'ok') {
           alert('회원 가입이 완료되었습니다!');
           navigate('/'); // 메인 페이지로 리디렉션
