@@ -20,6 +20,7 @@ const LoginForm = () => {
       if (response) {
         alert('로그인에 성공했습니다!');
         setUsername(username); // Context에 username 설정 및 localStorage 저장
+        window.location.reload(); // 로그인 성공 후 새로고침
       } else {
         alert('로그인에 실패했습니다. 이메일 또는 비밀번호를 확인하세요.');
       }
